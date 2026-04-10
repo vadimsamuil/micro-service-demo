@@ -1,3 +1,4 @@
+#11111111111111111111111111111111111111
 # from flask import Flask, jsonify, request
 # import json
 # import os
@@ -105,6 +106,39 @@ from flask import Flask, jsonify
 import requests
 import time
 
+# app = Flask(__name__)
+
+# # Адрес первого сервиса (user-service)
+# SERVICE_A_URL = "http://user-service:3001/data"
+
+# @app.route('/fetch', methods=['GET'])
+# def fetch_data():
+#     try:
+#         # Получаем данные от первого сервиса
+#         response = requests.get(SERVICE_A_URL)
+#         data = response.json()
+        
+#         # Сохраняем в лог-файл
+#         with open('/logs/data.log', 'a') as f:
+#             f.write(f"{time.ctime()} - Получено: {data}\n")
+        
+#         return jsonify({'status': 'ok', 'data': data})
+#     except Exception as e:
+#         return jsonify({'status': 'error', 'message': str(e)})
+
+# # Добавляем корневой адрес для проверки
+# @app.route('/', methods=['GET'])
+# def home():
+#     return jsonify({'message': 'Order Service работает! Используй /fetch'})
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=3002)
+
+
+from flask import Flask, jsonify
+import requests
+import time
+
 app = Flask(__name__)
 
 # Адрес первого сервиса (user-service)
@@ -117,15 +151,14 @@ def fetch_data():
         response = requests.get(SERVICE_A_URL)
         data = response.json()
         
-        # Сохраняем в лог-файл
-        with open('/logs/data.log', 'a') as f:
+        # Сохраняем в лог-файл (теперь в /tmp)
+        with open('/tmp/data.log', 'a') as f:
             f.write(f"{time.ctime()} - Получено: {data}\n")
         
         return jsonify({'status': 'ok', 'data': data})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
 
-# Добавляем корневой адрес для проверки
 @app.route('/', methods=['GET'])
 def home():
     return jsonify({'message': 'Order Service работает! Используй /fetch'})
